@@ -3,45 +3,53 @@ import React, { useState } from "react";
 export const ToDoList2 = () => {
 
     const [task, setTask] = useState("");
-    const [list, setList] = useState([]);
+    const [taskList, setTaskList] = useState([])
 
-    const deleteTask = (item)=>{
-        setList(list.filter((element)=> element !== item))
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Evita que el formulario se envíe y recargue la página
-
+    const handleSubmit = (event) => {
+        event.preventDefault()
         if (task.trim() !== "") {
-            setList([...list, task]);
-            setTask("");
+            setTaskList([...taskList, task])
+            setTask("")
         }
+        setTask("")
     }
 
+    const deletetask = (item) => {
+        setTaskList(taskList.filter((element) => element !== item))
+    }
 
     return (
-        <div className="container text-center">
-            <h1>To Do List</h1>
+        <div className="container col-10 col-sm-8 col-md-6 col-lg-6 col-xl-6 text-center">
+            <h1 className="bg-warning mt-3">To Do List</h1>
 
-            <form onSubmit= {handleSubmit}>
-            <div class="form-group">
-                <label htmlFor="exampleInputEmail1">Add Task</label>
-                <input type="text" 
-                className="form-control mt-2" id="exampleInputEmail1" 
-                aria-describedby="emailHelp" 
-                placeholder="Enter task"
-                value={task}
-                onChange={(e)=>setTask(e.target.value)} />
-            </div>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="exampleInputEmail1"></label>
+                    <input
+                        type="text"
+                        className="form-control bg-danger text-white"
+                        placeholder="Add task"
+                        value={task}
+                        onChange={(event) => setTask(event.target.value)}
+                    />
+                </div>
             </form>
-                <ul>
-                {list.map((item,id)=> <li key={id}>
-                    {item}
-                    <span onClick={()=>deleteTask(item)}>
-                        <i className="fas fa-trash"></i>
-                    </span>
-                </li>)}
-                </ul>
+
+            <ul className="list-group">
+
+                {taskList.map((element) =>
+                    <li className="list-group-item d-flex justify-content-between">
+                        {element}
+                        <span title="Delete task"
+                            onClick={() => { deletetask(element) }}>
+                            <i className="fas fa-trash"></i>
+                        </span>
+                    </li>
+                )}
+
+                <li className="list-group-item"> <strong>{taskList.length} Tasks</strong> </li>
+
+            </ul>
         </div>
     );
 };
