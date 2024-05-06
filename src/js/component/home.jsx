@@ -2,7 +2,7 @@ import React from "react";
 import ToDoList from "./ToDoList";
 import { ToDoList2 } from "./ToDoList2";
 import { Practice } from "./Practice";
-import { TodoListAPI } from "./ToDoListAPI";
+import { TodoListAPI } from "./TodoListAPI";
 
 
 //create your first component
